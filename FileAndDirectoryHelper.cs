@@ -1,17 +1,13 @@
+using System.IO;
 using System.Linq;
 
 namespace SteamScreenshotSorter
 {
     public class FileAndDirectoryHelper
     {
-        public static string GetFileNameFromPath(string path)
-        {
-            return path.Split('\\').Last();
-        }
-
         public static string GetFileNamePrefixFromPath(string path, char separator)
         {
-            return GetPrefixFromFileName(GetFileNameFromPath(path), separator);
+            return GetPrefixFromFileName(Path.GetFileName(path), separator);
         }
 
         public static string GetPrefixFromFileName(string name, char separator)
@@ -19,9 +15,9 @@ namespace SteamScreenshotSorter
             return name.Split(separator).First();
         }
 
-        public static string GetTrimmedFileName(string path)
+        public static string GetTrimmedFileNameFromPath(string path)
         {
-            var fileName = GetFileNameFromPath(path);
+            var fileName = Path.GetFileName(path);
             var prefix = GetPrefixFromFileName(fileName, '_');
             return fileName.Replace(prefix + "_", null);
         }

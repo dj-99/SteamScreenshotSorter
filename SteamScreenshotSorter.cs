@@ -19,6 +19,8 @@ namespace SteamScreenshotSorter
         public void Sort(string path)
         {
             string [] fileEntries = Directory.GetFiles(path);
+            fileEntries = fileEntries.Where(f => Path.GetExtension(f) == ".png").ToArray(); // Filter out all non-png files (e.g. executable)
+            
             foreach(string fileName in fileEntries)
             {
                 ProcessFile(fileName);
@@ -27,7 +29,7 @@ namespace SteamScreenshotSorter
 
         public void ProcessFile(string path) 
         {
-            var newFileName = FileAndDirectoryHelper.GetTrimmedFileName(path);
+            var newFileName = FileAndDirectoryHelper.GetTrimmedFileNameFromPath(path);
             var newLocation = GenerateNewLocation(path, newFileName);
 
             new System.IO.FileInfo(newLocation).Directory.Create(); // Create the new folder if it doesn't exist

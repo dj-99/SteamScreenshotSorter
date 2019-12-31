@@ -13,9 +13,10 @@ namespace SteamScreenshotSorter
             {
                 path = args[0];
             }
-            catch (ArgumentOutOfRangeException e)
+            catch (IndexOutOfRangeException)
             {
-                throw new ArgumentOutOfRangeException("Please provide a path to a directory", e);
+                path = System.Reflection.Assembly.GetExecutingAssembly().Location; // Use location of exe if no path provided
+                path = Path.GetDirectoryName(path);
             }
 
             if(Directory.Exists(path)) 
