@@ -86,7 +86,20 @@ namespace SteamScreenshotSorter
 
             Regex nameRegex = new Regex(@"(?<=""name"":"")[^""]*");
 
-            return nameRegex.Matches(html).First().Groups[0].Value;
+            var name = nameRegex.Matches(html).First().Groups[0].Value;
+            return RemoveUnicodeFromString(name);
         }
+
+        private static string RemoveUnicodeFromString(string input)
+        {
+            var result = input;
+            while (result.Contains(@"\u"))
+            {
+                // Unicode characters are in form '\u9999'
+                result = result.Remove(result.IndexOf(@"\u"), 6); 
+            }
+            return result;            
+        }
+
     }
 }
