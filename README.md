@@ -23,3 +23,5 @@ When executed, this tool will separate your screenshots based on the game they w
 ### Example usage:
 
 `SteamScreenshotSorter.exe "C:\Users\dj-99\Pictures\Steam Screenshots"`
+
+You could also create a task through Windows' Task Scheduler, to run this tool on a schedule, or when you log on.
